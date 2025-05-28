@@ -7,24 +7,6 @@
     #include <emscripten/emscripten.h>
 #endif
 
-void DrawFrame()
-{
-    BeginDrawing();
-
-    rlImGuiBegin();
-
-    ClearBackground(BLACK);
-
-    ShowMenuBar();
-    if (isSettings) ShowSettings(&isSettings);
-
-    if (settings.showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).data(), 0, menuOffset, 24, SKYBLUE);
-
-    rlImGuiEnd();
-    
-    EndDrawing();
-}
-
 int main()
 {
     settings.Load("settings.txt");

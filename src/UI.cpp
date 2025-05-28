@@ -5,6 +5,24 @@ bool isSettings = false;
 int menuOffset = 20;
 int windowSize[2] = {16*50*2, 9*50*2};
 
+void DrawFrame()
+{
+    BeginDrawing();
+
+    rlImGuiBegin();
+
+    ClearBackground(BLACK);
+
+    ShowMenuBar();
+    if (isSettings) ShowSettings(&isSettings);
+
+    if (settings.showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).data(), 0, menuOffset, 24, SKYBLUE);
+
+    rlImGuiEnd();
+    
+    EndDrawing();
+}
+
 void ShowSettings(bool* isOpen)
 {
     if (!ImGui::Begin("Settings", isOpen))
