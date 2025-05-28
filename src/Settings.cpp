@@ -1,7 +1,8 @@
 #include "Settings.hpp"
 #include "UI.hpp"
 
-Settings settings;
+bool verticalSync = true;
+bool showFPS = true;
 
 std::vector<std::string> Split(std::string input, char delimiter = ' ')
 {
@@ -21,7 +22,7 @@ std::vector<std::string> Split(std::string input, char delimiter = ' ')
     return output;
 }
 
-void Settings::Save(std::string fileName)
+void Save(std::string fileName)
 {
     // Read the file
     std::fstream settingsFile;
@@ -31,7 +32,7 @@ void Settings::Save(std::string fileName)
     settingsFile.close();
 }
 
-void Settings::Load(std::string fileName)
+void Load(std::string fileName)
 {
     // Read the file
     std::fstream settingsFile;

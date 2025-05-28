@@ -4,6 +4,7 @@
 bool isSettings = false;
 int menuOffset = 20;
 int windowSize[2] = {16*50*2, 9*50*2};
+bool lastVsync = verticalSync;
 
 void DrawFrame()
 {
@@ -16,7 +17,14 @@ void DrawFrame()
     ShowMenuBar();
     if (isSettings) ShowSettings(&isSettings);
 
-    if (settings.showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).data(), 0, menuOffset, 24, SKYBLUE);
+    if (showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).data(), 0, menuOffset, 24, SKYBLUE);
+    
+    if (lastVsync != verticalSync)
+    {
+        lastVsync = verticalSync;
+        if (!verticalSync) ClearWindowState(FLAG_VSYNC_HINT);
+        else SetWindowState(FLAG_VSYNC_HINT);
+    }
 
     rlImGuiEnd();
     
@@ -30,8 +38,8 @@ void ShowSettings(bool* isOpen)
         ImGui::End();
         return;
     }
-    ImGui::Checkbox("vsync", &settings.verticalSync);
-    ImGui::Checkbox("show-fps", &settings.showFPS);
+    ImGui::Checkbox("vsync", &verticalSync);
+    ImGui::Checkbox("show-fps", &showFPS);
     ImGui::End();
 }
 
