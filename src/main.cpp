@@ -1,5 +1,3 @@
-#include <string.h>
-#include "raylib.h"
 #include "Settings.hpp"
 #include "UI.hpp"
 
@@ -9,7 +7,9 @@
 
 int main()
 {
+    #if not defined(PLATFORM_WEB)
     Load("settings.txt");
+    #endif
 
     int flags = 0;
     flags |= FLAG_WINDOW_HIGHDPI;
@@ -29,7 +29,9 @@ int main()
         }
     #endif
 
+    #if not defined(PLATFORM_WEB)
     Save("settings.txt");
+    #endif
     rlImGuiShutdown();
 	CloseWindow();
 
