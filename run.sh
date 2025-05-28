@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -e
+
+# Release build
+if [ "$1" == "" ]; then
+    clear
+    ./reset_save_files.sh --soft
+    cmake -B build
+    cmake --build build -j ${nproc}
+    ./build/bin/main
+fi
+
+# Debug build
+if [ "$1" == "-d" ] || [ "$1" == "--debug" ]; then
+    clear
+    ./reset_save_files.sh --soft
+    cmake -B debug -DCMAKE_BUILD_TYPE=Debug
+    cmake --build debug -j ${nproc}
+    gdb -ex run ./debug/bin/main
+fi
+
+# Web build
+if [ "$1" == "-w" ] || [ "$1" == "--web" ]; then
+    clear
+    ./reset_save_files.sh --soft
+    emcmake cmake -B web -DPLATFORM=Web
+    cmake --build web -j ${nproc}
+    emrun ./web/bin/main.html
+fi
+
+# Help info
+if [ "$1" == "--help" ]; then
+    echo "Usage: ./run.sh [OPTION]..."
+    echo "Compile and run the program"
+    echo ""
+    echo "With no OPTION, compile and run the release build"
+    echo ""
+    echo "-d, --debug    Compile the debug build and run it with gdb"
+    echo "-w, --web      Compile the WebAssembly build"
+fi

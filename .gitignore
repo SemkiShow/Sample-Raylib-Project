@@ -1,0 +1,6 @@
+build*/
+debug/
+web/
+.vscode
+imgui.ini
+settings.txt
