@@ -1,44 +1,27 @@
-#include <string.h>
-#include "raylib.h"
 #include "Settings.hpp"
 #include "UI.hpp"
+#include <iostream>
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
 #endif
 
-void DrawFrame()
-{
-    BeginDrawing();
-
-    rlImGuiBegin();
-
-    ClearBackground(BLACK);
-
-    ShowMenuBar();
-    if (isSettings) ShowSettings(&isSettings);
-
-    if (settings.showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).data(), 0, menuOffset, 24, SKYBLUE);
-
-    rlImGuiEnd();
-    
-    EndDrawing();
-}
-
 int main()
 {
-    settings.Load("settings.txt");
+    #if not defined(PLATFORM_WEB)
+    Load("settings.txt");
+    #endif
 
     int flags = 0;
     flags |= FLAG_WINDOW_HIGHDPI;
-    if (settings.verticalSync) flags |= FLAG_VSYNC_HINT;
+    if (verticalSync) flags |= FLAG_VSYNC_HINT;
+    flags |= FLAG_WINDOW_RESIZABLE;
 	SetConfigFlags(flags);
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
     InitWindow(windowSize[0], windowSize[1], "Sample Raylib Project");
 
-    rlImGuiSetup(true);
-
-    bool lastVsync = settings.verticalSync;
+    GuiSetFont(GetFontDefault());
 
     #if defined(PLATFORM_WEB)
         emscripten_set_main_loop(DrawFrame, 0, 1);
@@ -46,18 +29,13 @@ int main()
         while (!WindowShouldClose())
         {
             DrawFrame();
-            if (lastVsync != settings.verticalSync)
-            {
-                lastVsync = settings.verticalSync;
-                if (!settings.verticalSync) ClearWindowState(FLAG_VSYNC_HINT);
-                else SetWindowState(FLAG_VSYNC_HINT);
-            }
         }
     #endif
 
-    settings.Save("settings.txt");
-    rlImGuiShutdown();
-	CloseWindow();
+    #if not defined(PLATFORM_WEB)
+    Save("settings.txt");
+	#endif
+    CloseWindow();
 
 	return 0;
 }

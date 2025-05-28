@@ -1,36 +1,37 @@
+#define RAYGUI_IMPLEMENTATION
 #include "UI.hpp"
 #include "Settings.hpp"
 
 bool isSettings = false;
-int menuOffset = 20;
 int windowSize[2] = {16*50*2, 9*50*2};
+bool lastVsync = verticalSync;
 
-void ShowSettings(bool* isOpen)
+void DrawFrame()
 {
-    if (!ImGui::Begin("Settings", isOpen))
+    BeginDrawing();
+
+    ClearBackground(BLACK);
+
+    if (showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).c_str(), 0, 0, 24, SKYBLUE);
+
+    if (GuiButton((Rectangle){(float)GetScreenWidth() - 30, 0, 30, 30}, "#142#")) isSettings = !isSettings;
+
+    DrawSettings(&isSettings);
+
+    if (lastVsync != verticalSync)
     {
-        ImGui::End();
-        return;
+        lastVsync = verticalSync;
+        if (!verticalSync) ClearWindowState(FLAG_VSYNC_HINT);
+        else SetWindowState(FLAG_VSYNC_HINT);
     }
-    ImGui::Checkbox("vsync", &settings.verticalSync);
-    ImGui::Checkbox("show-fps", &settings.showFPS);
-    ImGui::End();
+    
+    EndDrawing();
 }
 
-void ShowMenuBar()
+void DrawSettings(bool* isOpen)
 {
-    if (ImGui::BeginMainMenuBar())
-    {
-        if (ImGui::BeginMenu("Menu"))
-        {
-            if (ImGui::MenuItem("Settings"))
-            {
-                isSettings = true;
-                ShowSettings(&isSettings);
-            }
-            ImGui::EndMenu();
-        }
-        ImGui::EndMainMenuBar();
-    }
-    return;
+    if (!*isOpen) return;
+    DrawRectangleRounded((Rectangle){30, 30, (float)GetScreenWidth() - 60, (float)GetScreenHeight() - 60}, 0.1f, 1, Color{128, 128, 128, 128});
+    GuiCheckBox((Rectangle){60, 60, 30, 30}, "vsync", &verticalSync);
+    GuiCheckBox((Rectangle){60, 100, 30, 30}, "show-fps", &showFPS);
 }

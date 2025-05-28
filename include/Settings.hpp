@@ -2,12 +2,8 @@
 #include <vector>
 #include <fstream>
 
-class Settings
-{
-    public:
-        void Save(std::string fileName);
-        void Load(std::string fileName);
-        bool verticalSync = true;
-        bool showFPS = true;
-};
-extern Settings settings;
+extern bool verticalSync;
+extern bool showFPS;
+
+void Save(std::string fileName);
+void Load(std::string fileName);

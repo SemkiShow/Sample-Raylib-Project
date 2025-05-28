@@ -16,7 +16,7 @@ set(CMAKE_BUILD_TYPE Release)
 
 # Dependencies
 set(RAYLIB_VERSION 5.5)
-set(IMGUI_VERSION 1.91.9b)
+set(RAYGUI_VERSION 4.0)
 
 FetchContent_Declare(
     raylib
@@ -26,28 +26,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
-# Imgui
+# Raygui
 FetchContent_Declare(
-    imgui
-    URL https://github.com/ocornut/imgui/archive/v${IMGUI_VERSION}.zip
+    raygui
+    URL https://github.com/raysan5/raygui/archive/refs/tags/${RAYGUI_VERSION}.tar.gz
 )
-FetchContent_MakeAvailable(imgui)
-add_library(imgui)
-file(GLOB imgui-src ${imgui_SOURCE_DIR}/*.cpp ${imgui_SOURCE_DIR}/misc/cpp/*.cpp)
-target_sources(imgui PRIVATE ${imgui-src})
-target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR})
-
-# rlImGui
-FetchContent_Declare(
-    rlimgui
-    URL https://github.com/raylib-extras/rlImGui/archive/refs/heads/main.zip
-)
-FetchContent_MakeAvailable(rlimgui)
-add_library(rlimgui)
-file(GLOB rlimgui-src ${rlimgui_SOURCE_DIR}/*.cpp)
-target_sources(rlimgui PRIVATE ${rlimgui-src})
-target_include_directories(rlimgui PUBLIC ${rlimgui_SOURCE_DIR})
-target_link_libraries(rlimgui raylib imgui)
+FetchContent_MakeAvailable(raygui)
+add_subdirectory(${raygui_SOURCE_DIR}/projects/CMake)
 
 # Our Project
 file(GLOB SOURCES src/*.cpp)
@@ -72,7 +57,7 @@ else()
 endif()
 
 #set(raylib_VERBOSE 1)
-target_link_libraries(main raylib imgui rlimgui)
+target_link_libraries(main raylib raygui)
 
 # Web Configurations
 if ("${PLATFORM}" STREQUAL "Web")
