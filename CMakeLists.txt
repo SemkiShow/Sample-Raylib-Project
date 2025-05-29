@@ -63,7 +63,7 @@ target_link_libraries(main raylib raygui)
 if ("${PLATFORM}" STREQUAL "Web")
     # Tell Emscripten to build an example.html file.
     set_target_properties(main PROPERTIES SUFFIX ".html")
-    target_link_options(main PUBLIC -sUSE_GLFW=3 PUBLIC --preload-file resources)
+    target_link_options(main PUBLIC -sUSE_GLFW=3 PUBLIC --preload-file resources PUBLIC --shell-file ${CMAKE_SOURCE_DIR}/src/shell_minimal.html)
 endif()
 
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)

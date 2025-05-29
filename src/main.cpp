@@ -13,15 +13,18 @@ int main()
     #endif
 
     int flags = 0;
-    flags |= FLAG_WINDOW_HIGHDPI;
     if (verticalSync) flags |= FLAG_VSYNC_HINT;
+    #if not defined(PLATFORM_WEB)
+    flags |= FLAG_WINDOW_HIGHDPI;
     flags |= FLAG_WINDOW_RESIZABLE;
-	SetConfigFlags(flags);
+	#endif
+    SetConfigFlags(flags);
     GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
     InitWindow(windowSize[0], windowSize[1], "Sample Raylib Project");
 
     GuiSetFont(GetFontDefault());
+    SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 
     #if defined(PLATFORM_WEB)
         emscripten_set_main_loop(DrawFrame, 0, 1);

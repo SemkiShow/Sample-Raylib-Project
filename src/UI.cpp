@@ -14,7 +14,7 @@ void DrawFrame()
 
     if (showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).c_str(), 0, 0, 24, SKYBLUE);
 
-    if (GuiButton((Rectangle){(float)GetScreenWidth() - 30, 0, 30, 30}, "#142#")) isSettings = !isSettings;
+    if (GuiButton(Rectangle{(float)GetScreenWidth() - 30, 0, 30, 30}, "#142#")) isSettings = !isSettings;
 
     DrawSettings(&isSettings);
 
@@ -31,7 +31,7 @@ void DrawFrame()
 void DrawSettings(bool* isOpen)
 {
     if (!*isOpen) return;
-    DrawRectangleRounded((Rectangle){30, 30, (float)GetScreenWidth() - 60, (float)GetScreenHeight() - 60}, 0.1f, 1, Color{128, 128, 128, 128});
-    GuiCheckBox((Rectangle){60, 60, 30, 30}, "vsync", &verticalSync);
-    GuiCheckBox((Rectangle){60, 100, 30, 30}, "show-fps", &showFPS);
+    DrawRectangleRounded(Rectangle{30, 30, (float)GetScreenWidth() - 60, (float)GetScreenHeight() - 60}, 0.1f, 1, Color{128, 128, 128, 128});
+    GuiCheckBox(Rectangle{60, 60, 30, 30}, "vsync", &verticalSync);
+    GuiCheckBox(Rectangle{60, 100, 30, 30}, "show-fps", &showFPS);
 }
