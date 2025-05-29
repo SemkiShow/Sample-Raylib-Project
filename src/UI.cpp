@@ -4,7 +4,7 @@
 
 bool isSettings = false;
 int windowSize[2] = {16*50*2, 9*50*2};
-bool lastVsync = verticalSync;
+bool lastVsync = vsync;
 
 void DrawFrame()
 {
@@ -18,10 +18,10 @@ void DrawFrame()
 
     DrawSettings(&isSettings);
 
-    if (lastVsync != verticalSync)
+    if (lastVsync != vsync)
     {
-        lastVsync = verticalSync;
-        if (!verticalSync) ClearWindowState(FLAG_VSYNC_HINT);
+        lastVsync = vsync;
+        if (!vsync) ClearWindowState(FLAG_VSYNC_HINT);
         else SetWindowState(FLAG_VSYNC_HINT);
     }
     
@@ -32,6 +32,6 @@ void DrawSettings(bool* isOpen)
 {
     if (!*isOpen) return;
     DrawRectangleRounded(Rectangle{30, 30, (float)GetScreenWidth() - 60, (float)GetScreenHeight() - 60}, 0.1f, 1, Color{128, 128, 128, 128});
-    GuiCheckBox(Rectangle{60, 60, 30, 30}, "vsync", &verticalSync);
+    GuiCheckBox(Rectangle{60, 60, 30, 30}, "vsync", &vsync);
     GuiCheckBox(Rectangle{60, 100, 30, 30}, "show-fps", &showFPS);
 }

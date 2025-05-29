@@ -13,7 +13,7 @@ int main()
     #endif
 
     int flags = 0;
-    if (verticalSync) flags |= FLAG_VSYNC_HINT;
+    if (vsync) flags |= FLAG_VSYNC_HINT;
     #if not defined(PLATFORM_WEB)
     flags |= FLAG_WINDOW_HIGHDPI;
     flags |= FLAG_WINDOW_RESIZABLE;
