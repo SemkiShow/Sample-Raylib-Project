@@ -17,7 +17,7 @@ void DrawFrame()
     ShowMenuBar();
     if (isSettings) ShowSettings(&isSettings);
 
-    if (showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).data(), 0, menuOffset, 24, SKYBLUE);
+    if (showFPS) DrawFPS(0, 0);
     
     if (lastVsync != verticalSync)
     {
