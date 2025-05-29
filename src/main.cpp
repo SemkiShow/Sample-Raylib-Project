@@ -24,7 +24,6 @@ int main()
     InitWindow(windowSize[0], windowSize[1], "Sample Raylib Project");
 
     GuiSetFont(GetFontDefault());
-    SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 
     #if defined(PLATFORM_WEB)
         emscripten_set_main_loop(DrawFrame, 0, 1);
