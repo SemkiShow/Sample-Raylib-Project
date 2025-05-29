@@ -12,7 +12,7 @@ void DrawFrame()
 
     ClearBackground(BLACK);
 
-    if (showFPS) DrawText(("FPS: " + std::to_string(GetFPS())).c_str(), 0, 0, 24, SKYBLUE);
+    if (showFPS) DrawFPS(0, 0);
 
     if (GuiButton(Rectangle{(float)GetScreenWidth() - 30, 0, 30, 30}, "#142#")) isSettings = !isSettings;
 
