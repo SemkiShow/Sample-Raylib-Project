@@ -1,7 +1,7 @@
 #include "Settings.hpp"
 #include "UI.hpp"
 
-bool verticalSync = true;
+bool vsync = true;
 bool showFPS = true;
 
 std::vector<std::string> Split(std::string input, char delimiter = ' ')
@@ -27,7 +27,7 @@ void Save(std::string fileName)
     // Read the file
     std::fstream settingsFile;
     settingsFile.open(fileName, std::ios::out);
-    settingsFile << "vsync=" << (verticalSync ? "true" : "false") << '\n';
+    settingsFile << "vsync=" << (vsync ? "true" : "false") << '\n';
     settingsFile << "show-fps=" << (showFPS ? "true" : "false") << '\n';
     settingsFile.close();
 }
@@ -44,6 +44,6 @@ void Load(std::string fileName)
     settingsFile.close();
 
     // Process the file
-    verticalSync = settingsList[0].substr(6) == "true";
+    vsync = settingsList[0].substr(6) == "true";
     showFPS = settingsList[1].substr(9) == "true";
 }

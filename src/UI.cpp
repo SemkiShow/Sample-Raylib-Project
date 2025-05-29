@@ -4,7 +4,7 @@
 bool isSettings = false;
 int menuOffset = 20;
 int windowSize[2] = {16*50*2, 9*50*2};
-bool lastVsync = verticalSync;
+bool lastVsync = vsync;
 
 void DrawFrame()
 {
@@ -18,11 +18,11 @@ void DrawFrame()
     if (isSettings) ShowSettings(&isSettings);
 
     if (showFPS) DrawFPS(0, 0);
-    
-    if (lastVsync != verticalSync)
+
+    if (lastVsync != vsync)
     {
-        lastVsync = verticalSync;
-        if (!verticalSync) ClearWindowState(FLAG_VSYNC_HINT);
+        lastVsync = vsync;
+        if (!vsync) ClearWindowState(FLAG_VSYNC_HINT);
         else SetWindowState(FLAG_VSYNC_HINT);
     }
 
@@ -38,7 +38,7 @@ void ShowSettings(bool* isOpen)
         ImGui::End();
         return;
     }
-    ImGui::Checkbox("vsync", &verticalSync);
+    ImGui::Checkbox("vsync", &vsync);
     ImGui::Checkbox("show-fps", &showFPS);
     ImGui::End();
 }

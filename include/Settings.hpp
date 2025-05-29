@@ -2,7 +2,8 @@
 #include <vector>
 #include <fstream>
 
+extern bool vsync;
+extern bool showFPS;
+
 void Save(std::string fileName);
 void Load(std::string fileName);
-extern bool verticalSync;
-extern bool showFPS;
