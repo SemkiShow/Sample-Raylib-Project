@@ -12,10 +12,13 @@ int main()
     #endif
 
     int flags = 0;
-    flags |= FLAG_WINDOW_HIGHDPI;
     if (verticalSync) flags |= FLAG_VSYNC_HINT;
-	SetConfigFlags(flags);
-
+    #if not defined(PLATFORM_WEB)
+    flags |= FLAG_WINDOW_HIGHDPI;
+    flags |= FLAG_WINDOW_RESIZABLE;
+	#endif
+    SetConfigFlags(flags);
+    
     InitWindow(windowSize[0], windowSize[1], "Sample Raylib Project");
 
     rlImGuiSetup(true);
