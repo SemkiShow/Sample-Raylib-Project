@@ -8,13 +8,13 @@
 
 int main()
 {
-    #if not defined(PLATFORM_WEB)
+    #if !defined(PLATFORM_WEB)
     Load("settings.txt");
     #endif
 
     int flags = 0;
     if (vsync) flags |= FLAG_VSYNC_HINT;
-    #if not defined(PLATFORM_WEB)
+    #if !defined(PLATFORM_WEB)
     flags |= FLAG_WINDOW_HIGHDPI;
     flags |= FLAG_WINDOW_RESIZABLE;
 	#endif
@@ -22,6 +22,7 @@ int main()
     GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
     InitWindow(windowSize[0], windowSize[1], "Sample Raylib Project");
+    SetExitKey(-1);
 
     GuiSetFont(GetFontDefault());
 
@@ -34,7 +35,7 @@ int main()
         }
     #endif
 
-    #if not defined(PLATFORM_WEB)
+    #if !defined(PLATFORM_WEB)
     Save("settings.txt");
 	#endif
     CloseWindow();
