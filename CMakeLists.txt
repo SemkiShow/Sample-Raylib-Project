@@ -56,29 +56,21 @@ add_executable(main ${SOURCES})
 target_include_directories(main PRIVATE include/)
 target_compile_features(main PRIVATE cxx_std_17)
 set_target_properties(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-if ("${PLATFORM}" STREQUAL "Web")
-    add_custom_command(
-        TARGET main PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:main>/../resources
-    )
-    #DEPENDS main
-else()
-    add_custom_command(
-        TARGET main POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:main>/resources
-    )
-    #DEPENDS main
-endif()
-
-#set(raylib_VERBOSE 1)
 target_link_libraries(main raylib imgui rlimgui)
 
 # Web Configurations
 if ("${PLATFORM}" STREQUAL "Web")
     # Tell Emscripten to build an example.html file.
     set_target_properties(main PROPERTIES SUFFIX ".html")
-    target_link_options(main PUBLIC -sUSE_GLFW=3 PUBLIC --preload-file resources PUBLIC --shell-file ${CMAKE_SOURCE_DIR}/src/shell_minimal.html)
+    target_link_options(main PUBLIC 
+        "-sASSERTIONS=1"
+        "-sFORCE_FILESYSTEM"
+        "-sALLOW_MEMORY_GROWTH"
+        "-sUSE_GLFW=3"
+        "-sEXPORTED_RUNTIME_METHODS=['HEAPF32']"
+        "--preload-file" "${CMAKE_SOURCE_DIR}/resources@resources"
+        # "--shell-file" "${CMAKE_SOURCE_DIR}/src/shell_minimal.html"
+    )
 endif()
 
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)
