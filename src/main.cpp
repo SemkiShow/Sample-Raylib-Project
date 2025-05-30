@@ -7,19 +7,20 @@
 
 int main()
 {
-    #if not defined(PLATFORM_WEB)
+    #if !defined(PLATFORM_WEB)
     Load("settings.txt");
     #endif
 
     int flags = 0;
     if (vsync) flags |= FLAG_VSYNC_HINT;
-    #if not defined(PLATFORM_WEB)
+    #if !defined(PLATFORM_WEB)
     flags |= FLAG_WINDOW_HIGHDPI;
     flags |= FLAG_WINDOW_RESIZABLE;
 	#endif
     SetConfigFlags(flags);
     
     InitWindow(windowSize[0], windowSize[1], "Sample Raylib Project");
+    SetExitKey(-1);
 
     rlImGuiSetup(true);
 
@@ -32,7 +33,7 @@ int main()
         }
     #endif
 
-    #if not defined(PLATFORM_WEB)
+    #if !defined(PLATFORM_WEB)
     Save("settings.txt");
     #endif
     rlImGuiShutdown();
