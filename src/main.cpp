@@ -8,9 +8,7 @@
 
 int main()
 {
-    #if !defined(PLATFORM_WEB)
     Load("settings.txt");
-    #endif
 
     int flags = 0;
     if (vsync) flags |= FLAG_VSYNC_HINT;
@@ -35,9 +33,7 @@ int main()
         }
     #endif
 
-    #if !defined(PLATFORM_WEB)
     Save("settings.txt");
-	#endif
     CloseWindow();
 
 	return 0;
