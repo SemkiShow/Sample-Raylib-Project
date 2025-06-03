@@ -17,7 +17,7 @@ void DrawFrame()
     ShowMenuBar();
     if (isSettings) ShowSettings(&isSettings);
 
-    if (showFPS) DrawFPS(0, 0);
+    if (showFPS) DrawFPS(0, menuOffset);
 
     if (lastVsync != vsync)
     {
