@@ -37,13 +37,13 @@ void Load(std::string fileName)
     // Read the file
     std::fstream settingsFile;
     settingsFile.open(fileName, std::ios::in);
-    std::vector<std::string> settingsList;
-    std::string buf;
+    std::string buf, label, value;
     while (std::getline(settingsFile, buf))
-        settingsList.push_back(buf);
+    {
+        label = Split(buf, '=')[0];
+        value = Split(buf, '=')[1];
+        if (label == "vsync") vsync = value == "true";
+        if (label == "show-fps") showFPS = value == "true";
+    }
     settingsFile.close();
-
-    // Process the file
-    vsync = settingsList[0].substr(6) == "true";
-    showFPS = settingsList[1].substr(9) == "true";
 }
