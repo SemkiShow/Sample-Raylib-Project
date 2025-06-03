@@ -2,9 +2,32 @@
 #include "UI.hpp"
 #include "Settings.hpp"
 
+#define UI_SPACING 30
+#define ELEMENT_SIZE 30
+#define ELEMENT_SPACING 10
+
 bool isSettings = false;
 int windowSize[2] = {16*50*2, 9*50*2};
 bool lastVsync = vsync;
+
+float nextElementPositionY = UI_SPACING * 2;
+
+void DrawCheckBox(char* text, bool* value)
+{
+    GuiCheckBox(Rectangle{UI_SPACING * 2, nextElementPositionY, ELEMENT_SIZE, ELEMENT_SIZE}, text, value);
+    nextElementPositionY += ELEMENT_SIZE + ELEMENT_SPACING;
+}
+
+void DrawSettings(bool* isOpen)
+{
+    if (!*isOpen) return;
+    DrawRectangleRounded(
+            Rectangle{UI_SPACING, UI_SPACING, (float)GetScreenWidth() - UI_SPACING*2, (float)GetScreenHeight() - UI_SPACING*2}, 
+            0.1f, 1, Color{128, 128, 128, 128});
+    nextElementPositionY = UI_SPACING * 2;
+    DrawCheckBox("vsync", &vsync);
+    DrawCheckBox("show-fps", &showFPS);
+}
 
 void DrawFrame()
 {
@@ -26,12 +49,4 @@ void DrawFrame()
     }
     
     EndDrawing();
-}
-
-void DrawSettings(bool* isOpen)
-{
-    if (!*isOpen) return;
-    DrawRectangleRounded(Rectangle{30, 30, (float)GetScreenWidth() - 60, (float)GetScreenHeight() - 60}, 0.1f, 1, Color{128, 128, 128, 128});
-    GuiCheckBox(Rectangle{60, 60, 30, 30}, "vsync", &vsync);
-    GuiCheckBox(Rectangle{60, 100, 30, 30}, "show-fps", &showFPS);
 }
