@@ -6,13 +6,10 @@ if (UNIX)
     set(GLFW_BUILD_X11 ON CACHE BOOL "Build GLFW X11 support")
 endif()
 
-include(FetchContent)
-
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Set the default build type to Release
-set(CMAKE_BUILD_TYPE Release)
+include(FetchContent)
 
 # Dependencies
 set(RAYLIB_VERSION 5.5)
@@ -34,20 +31,18 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(raygui)
 add_subdirectory(${raygui_SOURCE_DIR}/projects/CMake)
 
-# Our Project
 file(GLOB SOURCES src/*.cpp)
-
-add_executable(main ${SOURCES})
-target_include_directories(main PRIVATE include/)
-target_compile_features(main PRIVATE cxx_std_17)
-set_target_properties(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-target_link_libraries(main raylib raygui)
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_include_directories(${PROJECT_NAME} PRIVATE include/)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib raygui)
 
 # Web Configurations
 if ("${PLATFORM}" STREQUAL "Web")
     # Tell Emscripten to build an example.html file.
-    set_target_properties(main PROPERTIES SUFFIX ".html")
-    target_link_options(main PUBLIC 
+    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+    target_link_options(${PROJECT_NAME} PUBLIC 
         "-sASSERTIONS=1"
         "-sFORCE_FILESYSTEM"
         "-sALLOW_MEMORY_GROWTH"
@@ -57,14 +52,14 @@ if ("${PLATFORM}" STREQUAL "Web")
         "--preload-file=${CMAKE_SOURCE_DIR}/settings.txt@settings.txt"
     )
     if ("${SHELL}" STREQUAL "Minimal")
-        target_link_options(main PUBLIC "--shell-file" "${CMAKE_SOURCE_DIR}/src/shell_minimal.html")
+        target_link_options(${PROJECT_NAME} PUBLIC "--shell-file" "${CMAKE_SOURCE_DIR}/src/shell_minimal.html")
     endif()
 endif()
 
 
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)
 if (APPLE)
-    target_link_libraries(main "-framework IOKit")
-    target_link_libraries(main "-framework Cocoa")
-    target_link_libraries(main "-framework OpenGL")
+    target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+    target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+    target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 endif()
