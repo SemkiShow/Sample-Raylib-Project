@@ -2,6 +2,6 @@
 
 set -e
 
-if [ ! -f settings.txt ] || [ "$1" == "" ]; then
-    printf "vsync=true\nshow-fps=true\n" > settings.txt
+if [ "$1" == "" ]; then
+    rm settings.txt
 fi
