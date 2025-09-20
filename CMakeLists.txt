@@ -15,6 +15,10 @@ include(FetchContent)
 set(RAYLIB_VERSION 5.5)
 set(IMGUI_VERSION 1.91.9b)
 
+# Turn off all warning-related errors when compiling third-party code
+add_compile_options(-Wno-error)
+message(STATUS "Downloading required libraries")
+
 FetchContent_Declare(
     raylib
     DOWNLOAD_EXTRACT_TIMESTAMP OFF
@@ -46,6 +50,7 @@ target_sources(rlimgui PRIVATE ${rlimgui-src})
 target_include_directories(rlimgui PUBLIC ${rlimgui_SOURCE_DIR})
 target_link_libraries(rlimgui raylib imgui)
 
+add_compile_options(-Wall -Wextra)
 file(GLOB SOURCES src/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE include/)
@@ -56,7 +61,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE raylib imgui rlimgui)
 # Web Configurations
 if ("${PLATFORM}" STREQUAL "Web")
     # Tell Emscripten to build an example.html file.
-    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "index" SUFFIX ".html")
     target_link_options(${PROJECT_NAME} PUBLIC 
         "-sASSERTIONS=1"
         "-sFORCE_FILESYSTEM"
