@@ -15,6 +15,10 @@ include(FetchContent)
 set(RAYLIB_VERSION 5.5)
 set(RAYGUI_VERSION 4.0)
 
+# Turn off all warning-related errors when compiling third-party code
+add_compile_options(-Wno-error)
+message(STATUS "Downloading required libraries")
+
 FetchContent_Declare(
     raylib
     DOWNLOAD_EXTRACT_TIMESTAMP OFF
@@ -31,6 +35,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(raygui)
 add_subdirectory(${raygui_SOURCE_DIR}/projects/CMake)
 
+add_compile_options(-Wall -Wextra)
 file(GLOB SOURCES src/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE include/)
@@ -41,7 +46,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE raylib raygui)
 # Web Configurations
 if ("${PLATFORM}" STREQUAL "Web")
     # Tell Emscripten to build an example.html file.
-    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "index" SUFFIX ".html")
     target_link_options(${PROJECT_NAME} PUBLIC 
         "-sASSERTIONS=1"
         "-sFORCE_FILESYSTEM"
