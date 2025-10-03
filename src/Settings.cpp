@@ -1,5 +1,6 @@
 #include "Settings.hpp"
-#include "UI.hpp"
+#include <fstream>
+#include <vector>
 
 bool vsync = true;
 bool showFPS = true;
@@ -22,28 +23,26 @@ std::vector<std::string> Split(std::string input, char delimiter = ' ')
     return output;
 }
 
-void Save(std::string fileName)
+void Save()
 {
     // Read the file
-    std::fstream settingsFile;
-    settingsFile.open(fileName, std::ios::out);
-    settingsFile << "vsync=" << (vsync ? "true" : "false") << '\n';
-    settingsFile << "show-fps=" << (showFPS ? "true" : "false") << '\n';
-    settingsFile.close();
+    std::ofstream file("settings.txt");
+    file << "vsync=" << (vsync ? "true" : "false") << '\n';
+    file << "show-fps=" << (showFPS ? "true" : "false") << '\n';
+    file.close();
 }
 
-void Load(std::string fileName)
+void Load()
 {
     // Read the file
-    std::fstream settingsFile;
-    settingsFile.open(fileName, std::ios::in);
+    std::ifstream file("settings.txt");
     std::string buf, label, value;
-    while (std::getline(settingsFile, buf))
+    while (std::getline(file, buf))
     {
         label = Split(buf, '=')[0];
         value = Split(buf, '=')[1];
         if (label == "vsync") vsync = value == "true";
         if (label == "show-fps") showFPS = value == "true";
     }
-    settingsFile.close();
+    file.close();
 }

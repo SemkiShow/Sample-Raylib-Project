@@ -1,18 +1,18 @@
-#define RAYGUI_IMPLEMENTATION
 #include "UI.hpp"
 #include "Settings.hpp"
+#include <raygui.h>
 
 #define UI_SPACING 30
 #define ELEMENT_SIZE 30
 #define ELEMENT_SPACING 10
 
 bool isSettings = false;
-int windowSize[2] = {16*50*2, 9*50*2};
+Vector2 windowSize{16*50*2, 9*50*2};
 bool lastVsync = vsync;
 
 float nextElementPositionY = UI_SPACING * 2;
 
-void DrawCheckBox(char* text, bool* value)
+void DrawCheckBox(const char* text, bool* value)
 {
     GuiCheckBox(Rectangle{UI_SPACING * 2, nextElementPositionY, ELEMENT_SIZE, ELEMENT_SIZE}, text, value);
     nextElementPositionY += ELEMENT_SIZE + ELEMENT_SPACING;

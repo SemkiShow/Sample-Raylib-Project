@@ -1,8 +1,9 @@
-#include "raylib.h"
-#include "raygui.h"
+#pragma once
+
+#include <raylib.h>
 
 extern bool isSettings;
-extern int windowSize[2];
+extern Vector2 windowSize;
 
 void DrawFrame();
 void DrawSettings(bool* isOpen);
