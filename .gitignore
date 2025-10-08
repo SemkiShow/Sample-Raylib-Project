@@ -2,3 +2,5 @@ build*/
 .vscode
 imgui.ini
 settings.txt
+thirdparty/imgui
+thirdparty/rlImGui
