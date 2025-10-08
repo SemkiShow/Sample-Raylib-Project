@@ -6,7 +6,6 @@ executable_name=SampleRaylibProject
 # Release build
 if [ "$1" == "" ]; then
     clear
-    ./reset_save_files.sh --soft
     cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
     cmake --build build -j32
     ./build/bin/$executable_name
@@ -15,7 +14,6 @@ fi
 # Debug build
 if [ "$1" == "-d" ] || [ "$1" == "--debug" ]; then
     clear
-    ./reset_save_files.sh --soft
     cmake -B build_debug -DCMAKE_BUILD_TYPE=Debug
     cmake --build build_debug -j32
     gdb -ex run --args ./build_debug/bin/$executable_name
@@ -24,7 +22,6 @@ fi
 # Windows build
 if [ "$1" == "-w" ] || [ "$1" == "--windows" ]; then
     clear
-    ./reset_save_files.sh --soft
     cmake -B build_win -DCMAKE_TOOLCHAIN_FILE="$(pwd)/mingw-w64-x86_64.cmake" -DCMAKE_BUILD_TYPE=RelWithDebInfo
     cmake --build build_win -j32
     wine ./build_win/bin/$executable_name.exe
@@ -33,7 +30,6 @@ fi
 # Web build
 if [ "$1" == "--web" ]; then
     clear
-    ./reset_save_files.sh --soft
     if [ "$2" == "-m" ] || [ "$2" == "--minimal" ]; then
         emcmake cmake -B build_web -DPLATFORM=Web -DSHELL=Minimal
     else
