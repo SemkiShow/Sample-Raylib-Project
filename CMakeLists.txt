@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.14)
 project(SampleRaylibProject)
 
 if (UNIX)
@@ -9,45 +9,23 @@ endif()
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include(FetchContent)
-
-# Dependencies
-set(RAYLIB_VERSION 5.5)
-set(IMGUI_VERSION 1.91.9b)
-
 # Turn off all warning-related errors when compiling third-party code
 add_compile_options(-Wno-error)
-message(STATUS "Downloading required libraries")
 
-FetchContent_Declare(
-    raylib
-    DOWNLOAD_EXTRACT_TIMESTAMP OFF
-    URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
-    FIND_PACKAGE_ARGS
-)
-FetchContent_MakeAvailable(raylib)
+# raylib
+add_subdirectory(${CMAKE_SOURCE_DIR}/thirdparty/raylib ${CMAKE_BINARY_DIR}/_deps/raylib-build)
 
 # Imgui
-FetchContent_Declare(
-    imgui
-    URL https://github.com/ocornut/imgui/archive/v${IMGUI_VERSION}.zip
-)
-FetchContent_MakeAvailable(imgui)
 add_library(imgui)
-file(GLOB imgui-src ${imgui_SOURCE_DIR}/*.cpp ${imgui_SOURCE_DIR}/misc/cpp/*.cpp)
+file(GLOB imgui-src ${CMAKE_SOURCE_DIR}/thirdparty/imgui/*.cpp ${CMAKE_SOURCE_DIR}/thirdparty/imgui/misc/cpp/*.cpp)
 target_sources(imgui PRIVATE ${imgui-src})
-target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR})
+target_include_directories(imgui PUBLIC ${CMAKE_SOURCE_DIR}/thirdparty/imgui)
 
 # rlImGui
-FetchContent_Declare(
-    rlimgui
-    URL https://github.com/raylib-extras/rlImGui/archive/refs/heads/main.zip
-)
-FetchContent_MakeAvailable(rlimgui)
 add_library(rlimgui)
-file(GLOB rlimgui-src ${rlimgui_SOURCE_DIR}/*.cpp)
+file(GLOB rlimgui-src ${CMAKE_SOURCE_DIR}/thirdparty/rlImGui/*.cpp)
 target_sources(rlimgui PRIVATE ${rlimgui-src})
-target_include_directories(rlimgui PUBLIC ${rlimgui_SOURCE_DIR})
+target_include_directories(rlimgui PUBLIC ${CMAKE_SOURCE_DIR}/thirdparty/rlImGui)
 target_link_libraries(rlimgui raylib imgui)
 
 add_compile_options(-Wall -Wextra)

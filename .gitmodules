@@ -1,0 +1,9 @@
+[submodule "thirdparty/raylib"]
+	path = thirdparty/raylib
+	url = https://github.com/raysan5/raylib
+[submodule "thirdparty/rlImGui"]
+	path = thirdparty/rlImGui
+	url = https://github.com/raylib-extras/rlImGui
+[submodule "thirdparty/imgui"]
+	path = thirdparty/imgui
+	url = https://github.com/ocornut/imgui
