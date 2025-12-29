@@ -29,7 +29,6 @@ std::vector<std::string> Split(std::string input, char delimiter = ' ')
 
 void Save()
 {
-    // Read the file
     std::ofstream file("settings.txt");
     file << "vsync=" << (vsync ? "true" : "false") << '\n';
     file << "show-fps=" << (showFPS ? "true" : "false") << '\n';
@@ -38,7 +37,6 @@ void Save()
 
 void Load()
 {
-    // Read the file
     std::ifstream file("settings.txt");
     std::string buf, label, value;
     while (std::getline(file, buf))

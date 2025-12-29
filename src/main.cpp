@@ -23,7 +23,7 @@ int main()
 #endif
     GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
-    InitWindow(windowSize.x, windowSize.y, "Sample Raylib Project");
+    InitWindow(windowSize.x, windowSize.y, "SampleRaylibProject");
     SetExitKey(-1);
 
     GuiSetFont(GetFontDefault());
