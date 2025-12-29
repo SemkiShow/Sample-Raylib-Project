@@ -1,5 +1,6 @@
 build*/
-.vscode
+.vscode/
+.cache/
 imgui.ini
 settings.txt
 thirdparty/imgui
