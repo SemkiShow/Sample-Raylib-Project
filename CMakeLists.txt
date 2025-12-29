@@ -53,7 +53,6 @@ if ("${PLATFORM}" STREQUAL "Web")
     endif()
 endif()
 
-
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} PRIVATE "-framework IOKit")

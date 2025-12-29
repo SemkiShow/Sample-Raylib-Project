@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "UI.hpp"
 #include "Settings.hpp"
+#include "UI.hpp"
 
 bool isSettings = false;
 int menuOffset = 20;
-int windowSize[2] = {16*50*2, 9*50*2};
+Vector2 windowSize = {16 * 50 * 2, 9 * 50 * 2};
 bool lastVsync = vsync;
 
 void DrawFrame()
@@ -26,12 +26,14 @@ void DrawFrame()
     if (lastVsync != vsync)
     {
         lastVsync = vsync;
-        if (!vsync) ClearWindowState(FLAG_VSYNC_HINT);
-        else SetWindowState(FLAG_VSYNC_HINT);
+        if (!vsync)
+            ClearWindowState(FLAG_VSYNC_HINT);
+        else
+            SetWindowState(FLAG_VSYNC_HINT);
     }
 
     rlImGuiEnd();
-    
+
     EndDrawing();
 }
 

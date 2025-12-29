@@ -2,13 +2,15 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "raylib.h"
-#include "imgui.h"
-#include "rlImGui.h"
+#pragma once
+
+#include <imgui.h>
+#include <raylib.h>
+#include <rlImGui.h>
 
 extern bool isSettings;
 extern int menuOffset;
-extern int windowSize[2];
+extern Vector2 windowSize;
 
 void DrawFrame();
 void ShowSettings(bool* isOpen);
