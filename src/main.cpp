@@ -21,7 +21,7 @@ int main()
     SetConfigFlags(flags);
 #endif
 
-    InitWindow(windowSize.x, windowSize.y, "SampleRaylibProject");
+    InitWindow(windowSize.x, windowSize.y, "Sample-Raylib-Project");
     SetExitKey(-1);
 
     rlImGuiSetup(true);

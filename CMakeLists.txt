@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(SampleRaylibProject)
+project(Sample-Raylib-Project)
 
 if (UNIX)
     set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "Build GLFW Wayland support")
