@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-executable_name=SampleRaylibProject
+executable_name=Sample-Raylib-Project
 
 # Compiling for Linux
 cmake -B build_release -DCMAKE_BUILD_TYPE=Release

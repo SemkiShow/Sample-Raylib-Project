@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-executable_name=SampleRaylibProject
+executable_name=Sample-Raylib-Project
 
 # Release build
 if [ "$1" == "" ]; then
