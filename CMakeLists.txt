@@ -28,7 +28,7 @@ target_sources(rlimgui PRIVATE ${rlimgui-src})
 target_include_directories(rlimgui PUBLIC ${CMAKE_SOURCE_DIR}/thirdparty/rlImGui)
 target_link_libraries(rlimgui raylib imgui)
 
-file(GLOB SOURCES src/*.cpp)
+file(GLOB_RECURSE SOURCES src/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE include/)
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -static)
