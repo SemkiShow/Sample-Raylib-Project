@@ -4,7 +4,14 @@ A template for creating a new Raylib project
 
 ## How to use
 
-Find and replace Sample-Raylib-Project with the name of your project
+1. Run
+```bash
+git clone https://github.com/SemkiShow/Sample-Raylib-Project
+cd Sample-Raylib-Project
+git checkout imgui
+git submodule update --init --recursive --depth 1 --jobs 8
+```
+2. Find and replace Sample-Raylib-Project with the name of your project
 
 ## How to run
 
@@ -20,12 +27,12 @@ Find and replace Sample-Raylib-Project with the name of your project
 
 ### Executable
 
-1. Install Raylib following one of these tutorials based on your system: [Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux), [Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows), [macOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
+1. If on Linux, install raylib's dependencies following [this tutorial](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux#dependencies)
+1. You'll need a C/C++ compiler and CMake
 1. Run 
 ```bash
 git clone https://github.com/SemkiShow/Sample-Raylib-Project
 cd Sample-Raylib-Project
-git checkout imgui
 git submodule update --init --recursive --depth 1 --jobs 8
 chmod +x run.sh
 ./run.sh
@@ -33,13 +40,13 @@ chmod +x run.sh
 
 ### Web version
 
-1. Install Raylib following one of these tutorials based on your system: [Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux), [Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows), [macOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
+1. If on Linux, install raylib's dependencies following [this tutorial](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux#dependencies)
+1. You'll need a C/C++ compiler and CMake
 1. Setup Emscripten using [this tutorial](https://github.com/raysan5/raylib/wiki/Working-for-Web-(HTML5))
 1. Run
 ```bash
 git clone https://github.com/SemkiShow/Sample-Raylib-Project
 cd Sample-Raylib-Project
-git checkout imgui
 git submodule update --init --recursive --depth 1 --jobs 8
 chmod +x run.sh
 ./run.sh --web
