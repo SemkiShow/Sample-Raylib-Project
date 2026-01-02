@@ -22,9 +22,9 @@ fi
 # Windows build
 if [ "$1" == "-w" ] || [ "$1" == "--windows" ]; then
     clear
-    cmake -B build_win -DCMAKE_TOOLCHAIN_FILE="$(pwd)/mingw-w64-x86_64.cmake" -DCMAKE_BUILD_TYPE=RelWithDebInfo
-    cmake --build build_win -j$(nproc)
-    wine ./build_win/bin/$executable_name.exe
+    cmake -B build_windows -DCMAKE_TOOLCHAIN_FILE="$(pwd)/mingw-w64-x86_64.cmake" -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    cmake --build build_windows -j$(nproc)
+    wine ./build_windows/bin/$executable_name.exe
 fi
 
 # Web build
