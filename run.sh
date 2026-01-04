@@ -14,7 +14,7 @@ fi
 # Debug build
 if [ "$1" == "-d" ] || [ "$1" == "--debug" ]; then
     clear
-    cmake -B build_debug -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    cmake -B build_debug -DCMAKE_BUILD_TYPE=Debug
     cmake --build build_debug -j$(nproc)
     gdb -ex run --args ./build_debug/bin/$executable_name
 fi
