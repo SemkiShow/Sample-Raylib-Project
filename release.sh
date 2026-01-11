@@ -14,10 +14,20 @@ cmake -B build_release_windows -DCMAKE_TOOLCHAIN_FILE=mingw-w64-x86_64.cmake -DC
 cmake --build build_release_windows -j$(nproc)
 cp build_release_windows/bin/$executable_name.exe .
 
-# Zipping the build
-zip release.zip $executable_name $executable_name.exe LICENSE README.md resources/**
-rm $executable_name $executable_name.exe
+# Zip the dependencies
+archive_name=$executable_name-$1
+zip $archive_name.zip LICENSE README.md resources/**
 
-# Creating a GitHub release
-gh release create $1 release.zip
-rm release.zip
+# Create the Linux release
+cp $archive_name.zip $archive_name-linux-x86_64.zip
+zip $archive_name-linux-x86_64.zip $executable_name
+rm $executable_name
+
+# Create the Windows release
+cp $archive_name.zip $archive_name-windows-x86_64.zip
+zip $archive_name-windows-x86_64.zip $executable_name.exe
+rm $executable_name.exe
+
+# Create a GitHub release
+gh release create $1 $archive_name-linux-x86_64.zip $archive_name-windows-x86_64.zip
+rm $archive_name*
