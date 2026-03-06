@@ -12,18 +12,18 @@
 
 int main()
 {
-    Load();
+    settings.Load();
 
 #if !defined(PLATFORM_WEB)
     int flags = 0;
-    if (vsync) flags |= FLAG_VSYNC_HINT;
+    if (settings.vsync) flags |= FLAG_VSYNC_HINT;
     flags |= FLAG_WINDOW_HIGHDPI;
     flags |= FLAG_WINDOW_RESIZABLE;
     SetConfigFlags(flags);
 #endif
     GuiSetStyle(DEFAULT, TEXT_SIZE, 24);
 
-    InitWindow(windowSize.x, windowSize.y, "Sample-Raylib-Project");
+    InitWindow(g_windowSize.x, g_windowSize.y, "Sample-Raylib-Project");
     SetExitKey(-1);
 
     GuiSetFont(GetFontDefault());
@@ -37,7 +37,7 @@ int main()
     }
 #endif
 
-    Save();
+    settings.Save();
     CloseWindow();
 
     return 0;

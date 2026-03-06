@@ -58,14 +58,14 @@ fi
 
 # Help info
 if [ "$1" == "--help" ]; then
-    echo "Usage: ./run.sh [OPTION]..."
-    echo "Compile and run the program"
+    echo "Usage: $0 [OPTION]..."
+    echo "Compile and run $executable_name"
     echo ""
     echo "With no OPTION, compile and run the release build"
     echo ""
-    echo "-d, --debug      Compile the debug build and run it with gdb"
-    echo "-w, --windows    Compile the Windows build and run it with Wine"
-    echo "--web            Compile the web build and run it with emrun"
-    echo "-p, --profile    Compile the profile build, profile it with perf and display the data with hotspot"
+    echo "-d, --debug          Compile the debug build and run it with gdb"
+    echo "-w, --windows        Compile the Windows build and run it with Wine"
+    echo "--web                Compile the web build and run it with emrun"
+    echo "-p, --profile        Compile the profile build, profile it with perf and display the data with hotspot"
     echo "-m, --memory-leak    Compile the memory leak build and run it"
 fi

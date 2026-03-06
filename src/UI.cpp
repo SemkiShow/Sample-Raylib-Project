@@ -12,8 +12,8 @@
 #define ELEMENT_SPACING 10
 
 bool isSettings = false;
-Vector2 windowSize{16 * 50 * 2, 9 * 50 * 2};
-bool lastVsync = vsync;
+Vector2 g_windowSize{16 * 50 * 2, 9 * 50 * 2};
+bool lastVsync = settings.vsync;
 
 float nextElementPositionY = UI_SPACING * 2;
 
@@ -25,18 +25,18 @@ void DrawCheckBox(const char* text, bool* value)
 
 void UpdateWindowSize()
 {
-    windowSize = {(float)GetRenderWidth(), (float)GetRenderHeight()};
-    windowSize /= GetWindowScaleDPI();
+    g_windowSize = {(float)GetRenderWidth(), (float)GetRenderHeight()};
+    g_windowSize /= GetWindowScaleDPI();
 }
 
 void DrawSettings()
 {
-    Rectangle rec = {UI_SPACING, UI_SPACING, windowSize.x - UI_SPACING * 2,
-                     windowSize.y - UI_SPACING * 2};
+    Rectangle rec = {UI_SPACING, UI_SPACING, g_windowSize.x - UI_SPACING * 2,
+                     g_windowSize.y - UI_SPACING * 2};
     DrawRectangleRounded(rec, 0.1f, 1, Color{127, 127, 127, 127});
     nextElementPositionY = rec.y + UI_SPACING;
-    DrawCheckBox("vsync", &vsync);
-    DrawCheckBox("show-fps", &showFPS);
+    DrawCheckBox("vsync", &settings.vsync);
+    DrawCheckBox("show-fps", &settings.showFPS);
 }
 
 void DrawFrame()
@@ -47,17 +47,17 @@ void DrawFrame()
 
     UpdateWindowSize();
 
-    if (showFPS) DrawFPS(0, 0);
+    if (settings.showFPS) DrawFPS(0, 0);
 
-    if (GuiButton({windowSize.x - ELEMENT_SIZE, 0, ELEMENT_SIZE, ELEMENT_SIZE}, "#142#"))
+    if (GuiButton({g_windowSize.x - ELEMENT_SIZE, 0, ELEMENT_SIZE, ELEMENT_SIZE}, "#142#"))
         isSettings = !isSettings;
 
     if (isSettings) DrawSettings();
 
-    if (lastVsync != vsync)
+    if (lastVsync != settings.vsync)
     {
-        lastVsync = vsync;
-        if (!vsync)
+        lastVsync = settings.vsync;
+        if (!settings.vsync)
             ClearWindowState(FLAG_VSYNC_HINT);
         else
             SetWindowState(FLAG_VSYNC_HINT);

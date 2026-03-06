@@ -7,7 +7,7 @@
 #include <raylib.h>
 
 extern bool isSettings;
-extern Vector2 windowSize;
+extern Vector2 g_windowSize;
 
 void DrawFrame();
 void DrawSettings(bool* isOpen);

@@ -4,8 +4,13 @@
 
 #pragma once
 
-extern bool vsync;
-extern bool showFPS;
+struct Settings
+{
+    bool vsync = true;
+    bool showFPS = true;
 
-void Save();
-void Load();
+    void Save();
+    void Load();
+};
+
+extern Settings settings;

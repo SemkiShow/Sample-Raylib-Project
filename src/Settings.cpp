@@ -4,30 +4,10 @@
 
 #include "Settings.hpp"
 #include <fstream>
-#include <vector>
 
-bool vsync = true;
-bool showFPS = true;
+Settings settings;
 
-std::vector<std::string> Split(std::string input, char delimiter = ' ')
-{
-    std::vector<std::string> output;
-    output.push_back("");
-    int index = 0;
-    for (size_t i = 0; i < input.size(); i++)
-    {
-        if (input[i] == delimiter)
-        {
-            index++;
-            output.push_back("");
-            continue;
-        }
-        output[index] += input[i];
-    }
-    return output;
-}
-
-void Save()
+void Settings::Save()
 {
     std::ofstream file("settings.txt");
     file << "vsync=" << (vsync ? "true" : "false") << '\n';
@@ -35,14 +15,17 @@ void Save()
     file.close();
 }
 
-void Load()
+void Settings::Load()
 {
     std::ifstream file("settings.txt");
     std::string buf, label, value;
     while (std::getline(file, buf))
     {
-        label = Split(buf, '=')[0];
-        value = Split(buf, '=')[1];
+        size_t equalSign = buf.find_first_of('=');
+        if (equalSign == buf.npos) continue;
+        label = buf.substr(0, equalSign);
+        value = buf.substr(equalSign + 1);
+
         if (label == "vsync") vsync = value == "true";
         if (label == "show-fps") showFPS = value == "true";
     }
