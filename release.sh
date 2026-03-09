@@ -4,6 +4,10 @@ set -e
 shopt -s globstar
 executable_name=Sample-Raylib-Project
 
+if [ -z "$1" ]; then
+    echo "Usage: $0 <version>"
+fi
+
 # Compiling for Linux
 cmake -B build_release -DCMAKE_BUILD_TYPE=Release
 cmake --build build_release -j$(nproc)
